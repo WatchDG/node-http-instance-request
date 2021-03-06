@@ -11,7 +11,7 @@ type RequestOptions = {
 };
 
 type RequestResponse = {
-    status?: number;
+    status: number;
     headers: IncomingHttpHeaders,
     body?: Buffer;
 }
@@ -22,7 +22,7 @@ export function request(requestOptions: RequestOptions): ReturningResultAsync<Re
     return new Promise(resolve => {
         try {
             const req = request(url, options, (res) => {
-                const status = res.statusCode;
+                const status = res.statusCode!;
                 const headers = res.headers;
                 const contentType = headers['content-type'];
                 const contentLength = headers['content-length'];
