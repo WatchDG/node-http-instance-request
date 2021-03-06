@@ -1,0 +1,31 @@
+{
+  "name": "http-instance-request",
+  "version": "0.1.0",
+  "description": "http request",
+  "keywords": [
+    "http",
+    "request"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Grigoriy Baranov",
+    "email": "baranov@w3m.co"
+  },
+  "repository": "github:WatchDG/node-http-instance-request",
+  "private": false,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "dependencies": {
+    "node-result": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "typescript": "^4.2.3"
+  }
+}
