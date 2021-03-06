@@ -4,13 +4,13 @@ import {URL} from 'url';
 import {IncomingHttpHeaders} from "http";
 import {ResultOk, ResultFail, ReturningResultAsync} from "node-result";
 
-type RequestOptions = {
+export type RequestOptions = {
     url: URL;
     options: http.RequestOptions | https.RequestOptions;
     data?: unknown;
 };
 
-type RequestResponse = {
+export type RequestResponse = {
     status: number;
     headers: IncomingHttpHeaders,
     body?: Buffer;
