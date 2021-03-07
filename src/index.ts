@@ -4,9 +4,11 @@ import {URL} from 'url';
 import {IncomingHttpHeaders} from "http";
 import {ResultOk, ResultFail, ReturningResultAsync} from "node-result";
 
+export type HttpOptions = http.RequestOptions | https.RequestOptions;
+
 export type RequestOptions = {
     url: URL;
-    options: http.RequestOptions | https.RequestOptions;
+    options: HttpOptions;
     data?: unknown;
 };
 
