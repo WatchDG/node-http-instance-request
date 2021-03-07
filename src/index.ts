@@ -31,8 +31,9 @@ export function request(requestOptions: RequestOptions): ReturningResultAsync<Re
                     let body = Buffer.alloc(0);
                     res.on('data', chunk => body = Buffer.concat([body, chunk], Buffer.byteLength(body) + Buffer.byteLength(chunk)));
                     res.on('end', () => resolve(ResultOk({status, headers, body})));
+                } else {
+                    resolve(ResultOk({status, headers}));
                 }
-                resolve(ResultOk({status, headers}));
             });
             req.on('error', error => resolve(ResultFail(error)));
             if (data) req.write(data);
