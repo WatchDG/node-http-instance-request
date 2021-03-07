@@ -27,8 +27,7 @@ export function request(requestOptions: RequestOptions): ReturningResultAsync<Re
                 const status = res.statusCode!;
                 const headers = res.headers;
                 const contentType = headers['content-type'];
-                const contentLength = headers['content-length'];
-                if (contentType && contentLength) {
+                if (contentType) {
                     let body = Buffer.alloc(0);
                     res.on('data', chunk => body = Buffer.concat([body, chunk], Buffer.byteLength(body) + Buffer.byteLength(chunk)));
                     res.on('end', () => resolve(ResultOk({status, headers, body})));
