@@ -9,7 +9,7 @@ export type HttpOptions = http.RequestOptions | https.RequestOptions;
 export type RequestOptions = {
     url: URL;
     options: HttpOptions;
-    data?: unknown;
+    body?: unknown;
 };
 
 export type RequestResponse = {
@@ -19,7 +19,7 @@ export type RequestResponse = {
 }
 
 export function request(requestOptions: RequestOptions): ReturningResultAsync<RequestResponse, Error> {
-    const {url, options, data} = requestOptions;
+    const {url, options, body} = requestOptions;
     const request = url.protocol === 'http:' ? http.request : https.request;
     return new Promise(resolve => {
         try {
@@ -36,7 +36,7 @@ export function request(requestOptions: RequestOptions): ReturningResultAsync<Re
                 }
             });
             req.on('error', error => resolve(ResultFail(error)));
-            if (data) req.write(data);
+            if (body) req.write(body);
             req.end();
         } catch (error) {
             resolve(ResultFail(error));
