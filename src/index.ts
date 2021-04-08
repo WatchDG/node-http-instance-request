@@ -1,8 +1,9 @@
 import * as http from 'http';
 import * as https from 'https';
 import {URL} from 'url';
-import {IncomingHttpHeaders} from "http";
-import {ResultOk, ResultFail, ReturningResultAsync} from "node-result";
+import type {IncomingHttpHeaders} from "http";
+import {ok, fail} from "node-result";
+import type {TResultAsync} from 'node-result';
 
 export type HttpOptions = http.RequestOptions | https.RequestOptions;
 
@@ -18,7 +19,7 @@ export type RequestResponse = {
     body?: Buffer;
 }
 
-export function request(requestOptions: RequestOptions): ReturningResultAsync<RequestResponse, Error> {
+export function request(requestOptions: RequestOptions): TResultAsync<RequestResponse, Error> {
     const {url, options, body} = requestOptions;
     const request = url.protocol === 'http:' ? http.request : https.request;
     return new Promise(resolve => {
@@ -30,16 +31,16 @@ export function request(requestOptions: RequestOptions): ReturningResultAsync<Re
                 if (contentType) {
                     let body = Buffer.alloc(0);
                     res.on('data', chunk => body = Buffer.concat([body, chunk], Buffer.byteLength(body) + Buffer.byteLength(chunk)));
-                    res.on('end', () => resolve(ResultOk({status, headers, body})));
+                    res.on('end', () => resolve(ok({status, headers, body})));
                 } else {
-                    resolve(ResultOk({status, headers}));
+                    resolve(ok({status, headers}));
                 }
             });
-            req.on('error', error => resolve(ResultFail(error)));
+            req.on('error', error => resolve(fail(error)));
             if (body) req.write(body);
             req.end();
         } catch (error) {
-            resolve(ResultFail(error));
+            resolve(fail(error));
         }
     });
 }
